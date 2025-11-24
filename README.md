@@ -3,4 +3,4 @@
 <b>making a website to play Tic-Tac-Toe Game</b>
 
 <p>I am still learning to make this game website.</p>
-<p>I learnt to do this website.</p>
+<u>I learnt to do this website.</u>
