@@ -1,5 +1,6 @@
 # tic-tac-toe-game
 
-<b>making a website to play tic-tac-toe game</b>
+<b>making a website to play Tic-Tac-Toe Game</b>
 
-<p>I am still learning to make this game website</p>
+<p>I am still learning to make this game website.</p>
+<p>I learnt to do this website.</p>
