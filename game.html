@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Tic Tac Toe Game</title>
+    <style>
+      body {
+        background-color: lightcyan;
+        text-align: center;
+        font-family: Arial, sans-serif;
+      }
+      h1 {
+        color: #333;
+      }
+      .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 70vh;
+      }
+      .game {
+        display: flex;
+        flex-wrap: wrap;
+        width: 360px;
+        gap: 10px;
+      }
+      .box {
+        height: 110px;
+        width: 110px;
+        font-size: 60px;
+        color: black;
+        background-color: #ffec99;
+        border-radius: 10px;
+        border: none;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+        cursor: pointer;
+        user-select: none;
+      }
+      .box:disabled {
+        cursor: default;
+        background-color: #ececec;
+      }
+      #msg {
+        font-size: 28px;
+        margin: 20px 0;
+        height: 40px;
+      }
+      button#reset,
+      button#new-btn {
+        padding: 10px 20px;
+        font-size: 18px;
+        border-radius: 8px;
+        border: none;
+        background-color: #0077cc;
+        color: white;
+        cursor: pointer;
+        margin: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Tic Tac Toe</h1>
+    <div class="container">
+      <div class="game">
+        <button class="box"></button>
+        <button class="box"></button>
+        <button class="box"></button>
+        <button class="box"></button>
+        <button class="box"></button>
+        <button class="box"></button>
+        <button class="box"></button>
+        <button class="box"></button>
+        <button class="box"></button>
+      </div>
+    </div>
+
+    <div id="msg"></div>
+    <button id="reset">Reset Game</button>
+
+    <script>
+      const boxes = document.querySelectorAll(".box");
+      const msg = document.getElementById("msg");
+      const resetBtn = document.getElementById("reset");
+      let turnO = true; // O starts first
+
+      const winPatterns = [
+        [0, 1, 2],
+        [3, 4, 5],
+        [6, 7, 8],
+        [0, 3, 6],
+        [1, 4, 7],
+        [2, 5, 8],
+        [0, 4, 8],
+        [2, 4, 6],
+      ];
+
+      function checkWinner() {
+        for (let pattern of winPatterns) {
+          const [a, b, c] = pattern;
+          if (
+            boxes[a].textContent &&
+            boxes[a].textContent === boxes[b].textContent &&
+            boxes[b].textContent === boxes[c].textContent
+          ) {
+            msg.textContent = `Winner is ${boxes[a].textContent}!`;
+            disableBoxes();
+            return true;
+          }
+        }
+        if ([...boxes].every((box) => box.textContent !== "")) {
+          msg.textContent = "It's a draw!";
+          return true;
+        }
+        return false;
+      }
+
+      function disableBoxes() {
+        boxes.forEach((box) => (box.disabled = true));
+      }
+
+      function enableBoxes() {
+        boxes.forEach((box) => {
+          box.disabled = false;
+          box.textContent = "";
+        });
+        msg.textContent = "";
+        turnO = true;
+      }
+
+      boxes.forEach((box) => {
+        box.addEventListener("click", () => {
+          if (!box.textContent) {
+            box.textContent = turnO ? "O" : "X";
+            box.style.color = turnO ? "green" : "black";
+            box.disabled = true;
+            if (!checkWinner()) {
+              turnO = !turnO;
+              msg.textContent = `Turn: ${turnO ? "O" : "X"}`;
+            }
+          }
+        });
+      });
+
+      resetBtn.addEventListener("click", () => {
+        enableBoxes();
+      });
+
+      // Initial display
+      msg.textContent = `Turn: O`;
+    </script>
+  </body>
+</html>
